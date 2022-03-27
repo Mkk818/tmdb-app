@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import axios from "../axios";
-import "./Row";
+import "./Row.scss";
+// import movieTrailer from "movie-trailer";
+// const movieTrailer = require("movie-trailer");
 
-const base_url = " https://image.tmdb.org/t/p/original";
+const base_url = "https://image.tmdb.org/t/p/original";
 
 type Props = {
   title: string;
@@ -20,6 +22,7 @@ type Movie = {
   backdrop_path: string;
 };
 
+
 type Options = {
   height: string;
   width: string;
@@ -31,6 +34,7 @@ type Options = {
 export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [trailerUrl, setTrailerUrl] = useState<string | null>("");
+
 
   useEffect(() => {
     async function fetchData() {
@@ -45,6 +49,7 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
     height: "390",
     width: "640",
     playerVars: {
+      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
     },
   };
@@ -53,9 +58,16 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
-      let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=d6e54198ff7fcb181d716dd074a1e859`);
+      let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=XXX`);
       setTrailerUrl(trailerurl.data.results[0]?.key);
     }
+    //   movieTrailer(movie?.name || movie?.title || movie?.original_name || "")
+    //     .then((url: string) => {
+    //       const urlParams = new URLSearchParams(new URL(url).search);
+    //       setTrailerUrl(urlParams.get("v"));
+    //     })
+    //     .catch((error: any) => console.log(error.message));
+    // }
   };
 
   return (
