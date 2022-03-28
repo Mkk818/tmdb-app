@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import "./Nav";
+import React, { useState, useEffect,
+  //  useCallback
+  } from "react";
+import "./Nav.scss";
 
 type Props = {
   className?: string;
